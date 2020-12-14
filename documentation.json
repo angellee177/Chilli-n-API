@@ -1,0 +1,149 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a simple API",
+    "version": "1.0.0",
+    "title": "Chilli'n API",
+    "contact": {
+      "email": "angelriapurnamasari17@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "Chilli'n API",
+      "description": "Operations to fetch external API from Flickr",
+      "externalDocs": {
+        "description": "Find out more about our API",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/feed/list": {
+      "get": {
+        "tags": [
+          "Chilli'n API"
+        ],
+        "summary": "Show All Images Feed",
+        "description": "Get all Images feed from Flickr API",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "All Images Feed show."
+          }
+        }
+      }
+    },
+    "/feed/search/{tags}": {
+      "get": {
+        "tags": [
+          "Chilli'n API"
+        ],
+        "summary": "searches images by tags",
+        "description": "By passing an tags, you can search for\navailable images in the system\n",
+        "operationId": "",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "tags",
+            "in": "path",
+            "description": "pass an optional search string for looking up inventory",
+            "required": true,
+            "type": "string",
+            "schema":{
+              "$ref":"#/definitions/ImagesItem"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "search results matching criteria",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ImagesItem"
+              }
+            }
+          },
+          "422": {
+            "description": "Cannot find the photos with tags"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ImagesItem": {
+      "type": "object",
+      "required": [
+        "Static_URL",
+        "Flickr_URL",
+        "Owner_URL",
+        "Title",
+        "Description",
+        "Published_date",
+        "Author",
+        "Tags"
+      ],
+      "properties": {
+        "Static_URL": {
+          "type"    : "string",
+          "format"  : "link",
+          "example" : "https://live.staticflickr.com/65535/50717532658_ab3357f57d_m.jpg"
+        },
+        "Flickr_URL": {
+          "type"    : "string",
+          "format"  :"link",
+          "example" : "https://www.flickr.com/photos/127391175@N08/50717532658/"
+        },
+        "Owner_URL": {
+          "type"    : "string",
+          "format"  : "link",
+          "example" :  "https://www.flickr.com/photos/127391175@N08"
+        },
+        "Title": {
+          "type"    : "string",
+          "format"  : "image_title",
+          "example" : "summer"
+        },
+        "Description": {
+          "type"    : "string",
+          "format"  :"image_description",
+          "example" : " <p><a href=\"https://www.flickr.com/people/127391175@N08/\">brett_pin</a> posted a photo:</p> <p><a href=\"https://www.flickr.com/photos/127391175@N08/50717532658/\" title=\" \"><img src=\"https://live.staticflickr.com/65535/50717532658_ab3357f57d_m.jpg\" width=\"160\" height=\"240\" alt=\" \" /></a></p> "
+        },
+        "Published_Date": {
+          "type"    : "string",
+          "format"  : "Date",
+          "example" :  "12 December 2020"
+        },
+        "Author": {
+          "type"    : "string",
+          "format"  : "Images Author",
+          "example" :  "brett_pi"
+        },
+        "Tags": {
+          "type"    : "string",
+          "format"  : "Images Tags",
+          "example" : "pinterest1"
+        }
+      }
+    }
+  }
+}

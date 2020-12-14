@@ -43,6 +43,7 @@ router.get('/feed/list', (req, res) => {
                 };
         });
     } catch (err) {
+        /* istanbul ignore next */
         return res.status(422).json(errorResponse("something went wrong when trying to fetch data", err));
     }
 });   
@@ -52,9 +53,9 @@ router.get('/feed/list', (req, res) => {
 router.get('/feed/search/:tags', (req, res) => {
     try {
         const query = { tags: req.params.tags }
-            , searchByTags  = `https://www.flickr.com/services/rest/?method=flickr.photos.search&`
-            +`api_key=b525f14a53fff62a96c3d7c392b13ad4&`
-            +`tags=${query.tags}&format=json&nojsoncallback=1&api_sig=dad2e45f8cd6f4555c16e50cc1c60552`
+            , searchByTags  = `https://www.flickr.com/services/rest/?method=flickr.photos.search&`+
+            `api_key=5e6cf683ffcfca04200286e429c5b2de&tags=${query}&format=json&nojsoncallback=1`
+
 
         request({
             url : searchByTags,
@@ -75,11 +76,13 @@ router.get('/feed/search/:tags', (req, res) => {
                 res.status(200).json(successResponse("Success Fetch Data", allPhotos));
 
             } else {
+                /* istanbul ignore next */
                 res.status(422).json(errorResponse(`Cannot find the photos with tags ${query}`, error));
             }
         });
         
     } catch (err) {
+        /* istanbul ignore next */
         return res.status(422).json(errorResponse("There is something went wrong, please try again!", err));
     }
 });
