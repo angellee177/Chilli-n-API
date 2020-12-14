@@ -8,7 +8,6 @@ const { errorResponse, successResponse } = require('../helpers/response')
 
 // Get Feed List
 router.get('/feed/list', (req, res) => {
-    console.log(searchByTags);
     try {
         request({
             url     : feedList,
@@ -29,8 +28,8 @@ router.get('/feed/list', (req, res) => {
 
                         Static_URL: photo.media.m.toString().replace("\\", ""),
                         Flickr_URL: photo.link.toString().replace("\\", ""),
-                        Owner_URL: 'https://www.flickr.com/photos/' + photo.author_id,
-                        Title: photo.title,
+                        Owner_URL : 'https://www.flickr.com/photos/' + photo.author_id,
+                        Title     : photo.title,
                         Description: photo.description,
                         Published_date: moment(photo.published).format('MM MMMM YYYY'),
                         Author: photo.author.substring(
@@ -62,7 +61,19 @@ router.get('/feed/search/:tags', (req, res) => {
             json: true
         }, function (error, response, body) {
             if (!error && response.statusCode === 200) {
-                res.status(200).json(successResponse(`Success get photos list with tags ${query}`, body));
+                // create a new output Data and get the Photos detail
+                let allPhotos = body.photos.photo.map(photo => ({
+                    Static_URL: 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_b.jpg',
+                    Flickr_URL: 'https://www.flickr.com/photos/' + photo.owner + '/' + photo.id,
+                    Owner_URL : 'https://www.flickr.com/photos/' + photo.owner,
+                    Title     : photo.title,
+                    // Published_date: moment(photo.published).format('MM MMMM YYYY'),
+                    Author    : photo.owner,
+                    // Tags      : photo.tags
+                }));
+
+                res.status(200).json(successResponse("Success Fetch Data", allPhotos));
+
             } else {
                 res.status(422).json(errorResponse(`Cannot find the photos with tags ${query}`, error));
             }
