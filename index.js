@@ -1,10 +1,11 @@
- const path         = require('path')
-    ,  express      = require('express')
-    ,  app          = express()
-    ,  dotenv       = require('dotenv')
-    ,  createError  = require('http-errors')
-    ,  cors         = require('cors')
-    ,  router       = require('./routes/index')
+ const path          = require('path')
+    ,  express       = require('express')
+    ,  app           = express()
+    ,  dotenv        = require('dotenv')
+    ,  createError   = require('http-errors')
+    ,  cors          = require('cors')
+    ,  router        = require('./routes/index')
+    ,  checkInternet = require('check-internet-connected')
 
 app.use(cors());
 app.use(express.json());
@@ -25,7 +26,13 @@ app.get("/", (req, res) => {
     });
 });
 
-    
+// Check if connected to internet or Not, Since this API consume External API.
+checkInternet()
+    .then((result) => {
+        console.log("You are connected to Internet.");
+    }).catch((err) => {
+        console.log(`Sorrry, you are not connected to Internet, here is the error detail ${err}`);
+    });
 
 // Catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -48,8 +55,7 @@ try {
         console.log(`Server is started at ${Date()} in ${env} mode!`);
         console.log(`Listening on Port ${port}!`);
     });
-} catch (err) {
-    handleError(err);
+} catch (err) {;
     console.log(err);
 };
 
