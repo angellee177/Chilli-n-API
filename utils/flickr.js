@@ -1,4 +1,4 @@
-const NodeFlickr = require('flickr-sdk');
+// const NodeFlickr = require('flickr-sdk');
 
 const options = {
     apiKey: '03d229f52ed82232c9fe5d3c91c5ee45',
@@ -7,6 +7,6 @@ const options = {
 
 
 
-const flickr_auth = NodeFlickr(options);
+// const flickr_auth = NodeFlickr(options);
 
-module.exports = flickr_auth;
+// module.exports = flickr_auth;
