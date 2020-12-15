@@ -9,6 +9,7 @@ const { errorResponse, successResponse } = require('../helpers/response')
 // Get Feed List
 router.get('/feed/list', (req, res) => {
     try {
+
         request({
             url     : feedList,
             json    : true,
@@ -24,8 +25,8 @@ router.get('/feed/list', (req, res) => {
                     let data = JSON.parse(mySubString)
 
                     // create new output data || reform a new output
-                    let allPhotos = data.map(photo => ({
-
+                    let allPhotos = data.map((photo, i) => ({
+                        id        : i+1,
                         Static_URL: photo.media.m.toString().replace("\\", ""),
                         Flickr_URL: photo.link.toString().replace("\\", ""),
                         Owner_URL : 'https://www.flickr.com/photos/' + photo.author_id,
@@ -55,7 +56,7 @@ router.get('/feed/search/:tags/:pages', (req, res) => {
         const query = { tags    : req.params.tags  }
             , page  = { number  : req.params.pages }
             , searchByTags  = `https://www.flickr.com/services/rest/?method=flickr.photos.search&`+
-            `api_key=2429f208737a3d16d5b6118bd2b75378&tags=${query.tags}&per_page=5&page=${page.number}&format=json&nojsoncallback=1`
+            `api_key=2429f208737a3d16d5b6118bd2b75378&tags=${query.tags}&per_page=10&page=${page.number}&format=json&nojsoncallback=1`
 
         request({
             url : searchByTags,
@@ -63,7 +64,9 @@ router.get('/feed/search/:tags/:pages', (req, res) => {
         }, function (error, response, body) {
             if (!error && response.statusCode === 200) {
                 // create a new output Data and get the Photos detail
-                let allPhotos = body.photos.photo.map(photo => ({
+                let allPhotos = body.photos.photo.map((photo, i) => ({
+                    id        : i+1,
+                    Photo_id  : photo.id, 
                     Static_URL: 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_b.jpg',
                     Flickr_URL: 'https://www.flickr.com/photos/' + photo.owner + '/' + photo.id,
                     Owner_URL : 'https://www.flickr.com/photos/' + photo.owner,
