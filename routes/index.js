@@ -57,8 +57,6 @@ router.get('/feed/search/:tags/:pages', (req, res) => {
             , searchByTags  = `https://www.flickr.com/services/rest/?method=flickr.photos.search&`+
             `api_key=2429f208737a3d16d5b6118bd2b75378&tags=${query.tags}&per_page=5&page=${page.number}&format=json&nojsoncallback=1`
 
-            console.log(query, page);
-
         request({
             url : searchByTags,
             json: true
