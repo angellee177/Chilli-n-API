@@ -27,7 +27,7 @@ describe("Testing fetching External API and Search Images by Tags", () => {
     describe('/GET public image list based on Tags', () => {
         it("Should get all public image list based on Tags", function (done) {
             chai.request(server)
-            .get('/api/v1/feed/search/goose')
+            .get('/api/v1/feed/search/goose/1')
             .end(function(err, res) {
                 res.should.have.status(200);
                 res.body.should.have.property('success').equal(true);
