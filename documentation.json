@@ -25,7 +25,6 @@
     }
   ],
   "schemes": [
-    "http",
     "https"
   ],
   "paths": {
@@ -49,7 +48,7 @@
         }
       }
     },
-    "/feed/search/{tags}": {
+    "/feed/search/{tags}/{pages}": {
       "get": {
         "tags": [
           "Chilli'n API"
@@ -64,7 +63,17 @@
           {
             "name": "tags",
             "in": "path",
-            "description": "pass an optional search string for looking up inventory",
+            "description": "pass an optional tags to search images by tags",
+            "required": true,
+            "type": "string",
+            "schema":{
+              "$ref":"#/definitions/ImagesItem"
+            }
+          },
+          {
+            "name": "pages",
+            "in": "path",
+            "description": "pass an pages number to get images using pagination",
             "required": true,
             "type": "string",
             "schema":{
@@ -142,6 +151,11 @@
           "type"    : "string",
           "format"  : "Images Tags",
           "example" : "pinterest1"
+        },
+        "Pages": {
+          "type"    : "integer",
+          "format"  : "pages number to use pagination",
+          "example" : 1
         }
       }
     }
