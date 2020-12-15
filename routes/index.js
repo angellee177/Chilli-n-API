@@ -50,12 +50,14 @@ router.get('/feed/list', (req, res) => {
 
 
 // Get Images based on Images Tags
-router.get('/feed/search/:tags', (req, res) => {
+router.get('/feed/search/:tags/:pages', (req, res) => {
     try {
-        const query = { tags: req.params.tags }
+        const query = { tags    : req.params.tags  }
+            , page  = { number  : req.params.pages }
             , searchByTags  = `https://www.flickr.com/services/rest/?method=flickr.photos.search&`+
-            `api_key=5e6cf683ffcfca04200286e429c5b2de&tags=${query}&format=json&nojsoncallback=1`
+            `api_key=2429f208737a3d16d5b6118bd2b75378&tags=${query.tags}&per_page=5&page=${page.number}&format=json&nojsoncallback=1`
 
+            console.log(query, page);
 
         request({
             url : searchByTags,
