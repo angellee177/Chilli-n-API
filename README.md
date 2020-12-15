@@ -13,7 +13,7 @@ Use the package manager [npm](https://docs.npmjs.com/) to install rocketchat-ass
 
 
 ```
-npm install # run NPM install to install depedencies after cloning this repositories
+npm install # run NPM install to install all depedencies that needed after cloning this repositories
 npm run dev # to running this API locally
 npm run test # to running the unit test, it will show the coverages of unit test.
 ```
@@ -28,7 +28,7 @@ npm run test # to running the unit test, it will show the coverages of unit test
 
 For documentations, you can visit
 
-``` ```
+[Chilli'n_API_Documentation](https://chillin-api.herokuapp.com/docs/)
 
 
 ## License
