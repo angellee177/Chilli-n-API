@@ -69,16 +69,6 @@
             "schema":{
               "$ref":"#/definitions/ImagesItem"
             }
-          },
-          {
-            "name": "pages",
-            "in": "path",
-            "description": "pass an pages number to get images using pagination",
-            "required": true,
-            "type": "string",
-            "schema":{
-              "$ref":"#/definitions/ImagesItem"
-            }
           }
         ],
         "responses": {
@@ -151,11 +141,6 @@
           "type"    : "string",
           "format"  : "Images Tags",
           "example" : "pinterest1"
-        },
-        "Pages": {
-          "type"    : "integer",
-          "format"  : "pages number to use pagination",
-          "example" : 1
         }
       }
     }

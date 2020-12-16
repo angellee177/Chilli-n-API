@@ -22,7 +22,7 @@ npm run test # to running the unit test, it will show the coverages of unit test
 ## Route List
 
 * Method GET    ```/api/v1/feed/list```       to get all images feed list.
-* Method GET    ```/api/v1/feed/search/{tags}```  to get images based on images tags.
+* Method GET    ```/api/v1/feed/search?tags={tags}```  to get images based on images tags.
 
 ## Documentation
 
