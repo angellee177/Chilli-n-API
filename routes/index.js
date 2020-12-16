@@ -55,15 +55,19 @@ router.get('/feed/list', (req, res) => {
 router.get('/feed/search', (req, res) => {
     try {
         const query = { tags    : req.query.tags  }
-            , searchByTags  = `https://www.flickr.com/services/rest/?method=flickr.photos.search&`+
-            `api_key=8ede54ad5bdb6c9993ed6b7904598b25&tags=${query.tags}`+
-            `&format=json&nojsoncallback=1&auth_token=72157717363204738-f9378b7fc2a2a7b4&api_sig=e696a943029ff846b1b643803264522a`
+            , searchByTags     = `https://www.flickr.com/services/rest/?method=flickr.photos.search&`+
+            `api_key=8ede54ad5bdb6c9993ed6b7904598b25&tags=${query.tags}&format=json&nojsoncallback=1`
+        // URL FLICKR API with Auth, so can have full permission
+            // , searchByTags  = `https://www.flickr.com/services/rest/?method=flickr.photos.search&`+
+            // `api_key=8ede54ad5bdb6c9993ed6b7904598b25&tags=${query.tags}`+
+            // `&format=json&nojsoncallback=1&auth_token=72157717363204738-f9378b7fc2a2a7b4&api_sig=e696a943029ff846b1b643803264522a`
 
         request({
             url : searchByTags,
             json: true
         }, function (error, response, body) {
-            if (!error && typeof(body.photo) !== undefined ) {
+            
+            if (!error && typeof(body.photos.photo) !== undefined ) {
                 // create a new output Data and get the Photos detail
                 let allPhotos = body.photos.photo.map((photo, i) => ({
                     id        : i+1,

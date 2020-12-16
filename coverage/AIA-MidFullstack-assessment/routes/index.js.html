@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">92.31% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>25/25</span>
+                <span class='fraction'>24/26</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>5/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">95.83% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>23/23</span>
+                <span class='fraction'>23/24</span>
             </div>
         
             
@@ -150,7 +150,10 @@
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -166,6 +169,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -208,25 +212,27 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">100x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -259,6 +265,7 @@ router.get('/feed/list', (req, res) =&gt; {
             url     : feedList,
             json    : true,
         }, function(error, response, body) {
+            console.log(response.statusCode);
                 <span class="missing-if-branch" title="else path not taken" >E</span>if (!error &amp;&amp; response.statusCode === 200) {
                     // extract character from string
                     let mySubString = body.substring(
@@ -299,15 +306,17 @@ router.get('/feed/list', (req, res) =&gt; {
 router.get('/feed/search', (req, res) =&gt; {
     try {
         const query = { tags    : req.query.tags  }
-            , searchByTags  = `https://www.flickr.com/services/rest/?method=flickr.photos.search&amp;api_key=07d8a70b974b2de4a33af5e7364bc377&amp;tags=${query.tags}&amp;format=json&amp;nojsoncallback=1`
+            , searchByTags  = `https://www.flickr.com/services/rest/?method=flickr.photos.search&amp;`+
+            `api_key=8ede54ad5bdb6c9993ed6b7904598b25&amp;tags=${query.tags}`+
+            `&amp;format=json&amp;nojsoncallback=1&amp;auth_token=72157717363204738-f9378b7fc2a2a7b4&amp;api_sig=e696a943029ff846b1b643803264522a`
 &nbsp;
         request({
             url : searchByTags,
             json: true
         }, function (error, response, body) {
-            <span class="missing-if-branch" title="else path not taken" >E</span>if (!error &amp;&amp; response.statusCode === 200) {
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (!error &amp;&amp; typeof(body.photo) !== undefined ) {
                 // create a new output Data and get the Photos detail
-                let allPhotos = body.photos.photo.map((photo, i) =&gt; ({
+                let allPhotos = body.photos.photo.map(<span class="fstat-no" title="function not covered" >(p</span>hoto, i) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
                     id        : i+1,
                     Photo_id  : photo.id, 
                     Static_URL: 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_b.jpg',
@@ -319,7 +328,7 @@ router.get('/feed/search', (req, res) =&gt; {
                     // Tags      : photo.tags
                 }));
 &nbsp;
-                res.status(200).json(successResponse("Success Fetch Data", allPhotos));
+<span class="cstat-no" title="statement not covered" >                res.status(200).json(successResponse("Success Fetch Data", allPhotos));</span>
 &nbsp;
             } else {
                 /* istanbul ignore next */
@@ -343,7 +352,7 @@ module.exports = router;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Dec 16 2020 14:06:51 GMT+0700 (Western Indonesia Time)
+                at Thu Dec 17 2020 00:33:48 GMT+0700 (Western Indonesia Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>
