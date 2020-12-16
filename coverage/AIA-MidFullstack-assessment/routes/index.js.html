@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>26/26</span>
+                <span class='fraction'>25/25</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>24/24</span>
+                <span class='fraction'>23/23</span>
             </div>
         
             
@@ -149,7 +149,8 @@
 <a name='L90'></a><a href='#L90'>90</a>
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -160,6 +161,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -205,8 +207,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -214,7 +214,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -252,6 +254,7 @@
 // Get Feed List
 router.get('/feed/list', (req, res) =&gt; {
     try {
+&nbsp;
         request({
             url     : feedList,
             json    : true,
@@ -267,8 +270,8 @@ router.get('/feed/list', (req, res) =&gt; {
                     let data = JSON.parse(mySubString)
 &nbsp;
                     // create new output data || reform a new output
-                    let allPhotos = data.map(photo =&gt; ({
-&nbsp;
+                    let allPhotos = data.map((photo, i) =&gt; ({
+                        id        : i+1,
                         Static_URL: photo.media.m.toString().replace("\\", ""),
                         Flickr_URL: photo.link.toString().replace("\\", ""),
                         Owner_URL : 'https://www.flickr.com/photos/' + photo.author_id,
@@ -293,12 +296,10 @@ router.get('/feed/list', (req, res) =&gt; {
 &nbsp;
 &nbsp;
 // Get Images based on Images Tags
-router.get('/feed/search/:tags/:pages', (req, res) =&gt; {
+router.get('/feed/search', (req, res) =&gt; {
     try {
-        const query = { tags    : req.params.tags  }
-            , page  = { number  : req.params.pages }
-            , searchByTags  = `https://www.flickr.com/services/rest/?method=flickr.photos.search&amp;`+
-            `api_key=2429f208737a3d16d5b6118bd2b75378&amp;tags=${query.tags}&amp;per_page=5&amp;page=${page.number}&amp;format=json&amp;nojsoncallback=1`
+        const query = { tags    : req.query.tags  }
+            , searchByTags  = `https://www.flickr.com/services/rest/?method=flickr.photos.search&amp;api_key=07d8a70b974b2de4a33af5e7364bc377&amp;tags=${query.tags}&amp;format=json&amp;nojsoncallback=1`
 &nbsp;
         request({
             url : searchByTags,
@@ -306,7 +307,9 @@ router.get('/feed/search/:tags/:pages', (req, res) =&gt; {
         }, function (error, response, body) {
             <span class="missing-if-branch" title="else path not taken" >E</span>if (!error &amp;&amp; response.statusCode === 200) {
                 // create a new output Data and get the Photos detail
-                let allPhotos = body.photos.photo.map(photo =&gt; ({
+                let allPhotos = body.photos.photo.map((photo, i) =&gt; ({
+                    id        : i+1,
+                    Photo_id  : photo.id, 
                     Static_URL: 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_b.jpg',
                     Flickr_URL: 'https://www.flickr.com/photos/' + photo.owner + '/' + photo.id,
                     Owner_URL : 'https://www.flickr.com/photos/' + photo.owner,
@@ -340,7 +343,7 @@ module.exports = router;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Dec 15 2020 12:48:36 GMT+0700 (Western Indonesia Time)
+                at Wed Dec 16 2020 14:06:51 GMT+0700 (Western Indonesia Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

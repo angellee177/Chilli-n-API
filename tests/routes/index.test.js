@@ -27,11 +27,21 @@ describe("Testing fetching External API and Search Images by Tags", () => {
     describe('/GET public image list based on Tags', () => {
         it("Should get all public image list based on Tags", function (done) {
             chai.request(server)
-            .get('/api/v1/feed/search/goose/1')
+            .get('/api/v1/feed/search?tags=goose')
             .end(function(err, res) {
                 res.should.have.status(200);
                 res.body.should.have.property('success').equal(true);
                 res.body.should.have.property('message').equal("Success Fetch Data");
+                res.should.be.an("object");
+                done();
+            });
+        });
+
+        it("Should show error 404", function (done) {
+            chai.request(server)
+            .get('/api/v1/feed/search/goose')
+            .end(function(err, res) {
+                res.should.have.status(404);
                 res.should.be.an("object");
                 done();
             });
