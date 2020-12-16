@@ -14,6 +14,7 @@ router.get('/feed/list', (req, res) => {
             url     : feedList,
             json    : true,
         }, function(error, response, body) {
+            console.log(response.statusCode);
                 if (!error && response.statusCode === 200) {
                     // extract character from string
                     let mySubString = body.substring(
@@ -54,13 +55,15 @@ router.get('/feed/list', (req, res) => {
 router.get('/feed/search', (req, res) => {
     try {
         const query = { tags    : req.query.tags  }
-            , searchByTags  = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=07d8a70b974b2de4a33af5e7364bc377&tags=${query.tags}&format=json&nojsoncallback=1`
+            , searchByTags  = `https://www.flickr.com/services/rest/?method=flickr.photos.search&`+
+            `api_key=8ede54ad5bdb6c9993ed6b7904598b25&tags=${query.tags}`+
+            `&format=json&nojsoncallback=1&auth_token=72157717363204738-f9378b7fc2a2a7b4&api_sig=e696a943029ff846b1b643803264522a`
 
         request({
             url : searchByTags,
             json: true
         }, function (error, response, body) {
-            if (!error && response.statusCode === 200) {
+            if (!error && typeof(body.photo) !== undefined ) {
                 // create a new output Data and get the Photos detail
                 let allPhotos = body.photos.photo.map((photo, i) => ({
                     id        : i+1,
