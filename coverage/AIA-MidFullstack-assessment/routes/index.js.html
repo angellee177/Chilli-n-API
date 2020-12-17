@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.31% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>24/26</span>
+                <span class='fraction'>26/26</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.83% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>23/24</span>
+                <span class='fraction'>24/24</span>
             </div>
         
             
@@ -213,18 +213,14 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -232,7 +228,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -306,17 +306,17 @@ router.get('/feed/list', (req, res) =&gt; {
 router.get('/feed/search', (req, res) =&gt; {
     try {
         const query = { tags    : req.query.tags  }
-            , searchByTags  = `https://www.flickr.com/services/rest/?method=flickr.photos.search&amp;`+
-            `api_key=8ede54ad5bdb6c9993ed6b7904598b25&amp;tags=${query.tags}`+
-            `&amp;format=json&amp;nojsoncallback=1&amp;auth_token=72157717363204738-f9378b7fc2a2a7b4&amp;api_sig=e696a943029ff846b1b643803264522a`
+            , searchByTags     = `https://www.flickr.com/services/rest/?method=flickr.photos.search&amp;`+
+            `api_key=9224a5000c15b315a1e82597f9c8a2a8&amp;tags=${query.tags}&amp;format=json&amp;nojsoncallback=1`
 &nbsp;
         request({
             url : searchByTags,
             json: true
         }, function (error, response, body) {
-            <span class="missing-if-branch" title="else path not taken" >E</span>if (!error &amp;&amp; typeof(body.photo) !== undefined ) {
+            
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (!error &amp;&amp; typeof(body.photos.photo) !== undefined ) {
                 // create a new output Data and get the Photos detail
-                let allPhotos = body.photos.photo.map(<span class="fstat-no" title="function not covered" >(p</span>hoto, i) =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
+                let allPhotos = body.photos.photo.map((photo, i) =&gt; ({
                     id        : i+1,
                     Photo_id  : photo.id, 
                     Static_URL: 'https://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_b.jpg',
@@ -328,7 +328,7 @@ router.get('/feed/search', (req, res) =&gt; {
                     // Tags      : photo.tags
                 }));
 &nbsp;
-<span class="cstat-no" title="statement not covered" >                res.status(200).json(successResponse("Success Fetch Data", allPhotos));</span>
+                res.status(200).json(successResponse("Success Fetch Data", allPhotos));
 &nbsp;
             } else {
                 /* istanbul ignore next */
@@ -352,7 +352,7 @@ module.exports = router;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Dec 17 2020 00:33:48 GMT+0700 (Western Indonesia Time)
+                at Thu Dec 17 2020 13:27:38 GMT+0700 (Western Indonesia Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>
