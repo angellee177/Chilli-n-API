@@ -56,7 +56,7 @@ router.get('/feed/search', (req, res) => {
     try {
         const query = { tags    : req.query.tags  }
             , searchByTags     = `https://www.flickr.com/services/rest/?method=flickr.photos.search&`+
-            `api_key=9224a5000c15b315a1e82597f9c8a2a8&tags=${query.tags}format=json&nojsoncallback=1`
+            `api_key=9224a5000c15b315a1e82597f9c8a2a8&tags=${query.tags}&format=json&nojsoncallback=1`
 
         request({
             url : searchByTags,
