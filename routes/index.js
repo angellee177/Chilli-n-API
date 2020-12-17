@@ -56,11 +56,7 @@ router.get('/feed/search', (req, res) => {
     try {
         const query = { tags    : req.query.tags  }
             , searchByTags     = `https://www.flickr.com/services/rest/?method=flickr.photos.search&`+
-            `api_key=8ede54ad5bdb6c9993ed6b7904598b25&tags=${query.tags}&format=json&nojsoncallback=1`
-        // URL FLICKR API with Auth, so can have full permission
-            // , searchByTags  = `https://www.flickr.com/services/rest/?method=flickr.photos.search&`+
-            // `api_key=8ede54ad5bdb6c9993ed6b7904598b25&tags=${query.tags}`+
-            // `&format=json&nojsoncallback=1&auth_token=72157717363204738-f9378b7fc2a2a7b4&api_sig=e696a943029ff846b1b643803264522a`
+            `api_key=9224a5000c15b315a1e82597f9c8a2a8&tags=${query.tags}format=json&nojsoncallback=1`
 
         request({
             url : searchByTags,
