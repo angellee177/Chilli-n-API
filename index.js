@@ -15,12 +15,11 @@ app.use(express.json());
 app.use('/api/v1', router);
 app.use(express.static(path.join(__dirname, 'public')) );
 
+// read the configuration setting inside "config/config.env";
+dotenv.config({ path : './config/config.env' });
+
 const port      = process.env.PORT || 5001
     , env       = process.env.NODE_ENV || 'development'
-
-if(env === "development" || env === "test") {
-    dotenv.config({ path : './config/config.env' })
-}
 
 app.use(
     express.urlencoded({
