@@ -1,6 +1,6 @@
 # Chilli'n API
 this is a simple API that build using Node.js, and Express.JS to consume External API.
-For this project i use [flickr](https://www.flickr.com/services/api/) and retrieving the data fro Flickr API.
+For this project i use [flickr](https://www.flickr.com/services/api/) and retrieving the data from Flickr API.
 
 
 ## Prequisites
